@@ -1,8 +1,8 @@
-# Documentação modular — componentes Unity e nodes Godot
+# MapMagic 2 Bundle v2.1.11 — documentação modular
 
 ## Objetivo
 
-Esta pasta transforma o catálogo geral em documentos separados por categoria. O foco é explicar os componentes necessários para uma engine 2D/3D e, especialmente, para recriar o fluxo do MapMagic: terrenos procedurais, chunks, materiais, objetos, navegação, editor, input e execução mobile.
+Esta pasta contém a análise do MapMagic 2 Bundle v2.1.11 e o catálogo Unity/Godot usado para explicar o fluxo do plugin. Os documentos estão separados por categoria para que cada sistema — terreno, renderização, assets, Inspector, editor, runtime e mobile — possa ser consultado isoladamente.
 
 Uma lista absolutamente literal de todos os tipos da API de duas engines depende da versão e passa de milhares de classes. A documentação abaixo cobre os componentes de cena, recursos e serviços que participam diretamente de um projeto de engine/terrain. Cada categoria possui sua própria explicação, fluxo, localização no editor, dependências, exemplos e tutorial de teste.
 
