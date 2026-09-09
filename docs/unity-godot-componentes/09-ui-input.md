@@ -175,6 +175,55 @@ No Brush, a documentação declara:
 
 Isso é input de ferramenta do Editor/Brush, não uma declaração de que MapMagic fornece um sistema de input de gameplay para o jogo exportado. O bundle não exige o novo Input System para o core.
 
+## Interface de propriedades e Inspector
+
+### Unity UI
+
+| Elemento | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Canvas` | Inspector do `GameObject` | Render Mode, câmera, sorting e opções do canvas |
+| `CanvasScaler` | Inspector | Scale Mode, referência de resolução e match |
+| `GraphicRaycaster` | Inspector | Eventos gráficos e blocking objects conforme a versão |
+| `CanvasGroup` | Inspector | Alpha, interactable e blocks raycasts |
+| `Image`/`RawImage` | Inspector | Sprite/texture, cor, material, raycast e modo de preenchimento |
+| `Text`/TextMeshPro | Inspector e asset de fonte | Texto, fonte, tamanho, alinhamento, overflow, material e layout |
+| Botões, toggles, sliders, input fields e scroll views | Inspector do controle e componentes filhos | Estado, eventos, valores, navegação e referências visuais |
+| Layout groups e `ContentSizeFitter` | Inspector | Eixos, espaçamento, alinhamento, expansão e ajuste de tamanho |
+| `EventSystem` | Inspector | Input module e seleção/eventos de UI |
+| Raycasters | Inspector | Regras de raycast da superfície correspondente |
+
+### Godot UI
+
+| Elemento | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Control` | Inspector do nó | Layout, anchors, offsets, mouse filter, foco e tema |
+| `Container` | Inspector do nó | Regras de organização dos filhos |
+| `Label`, `TextureRect`, `ColorRect` e visuais | Inspector | Conteúdo visual, textura, cor, tema e layout |
+| Botões, campos, sliders e listas | Inspector | Texto/valor, estado, foco, sinais e tema |
+| `CanvasLayer` | Inspector | Layer e comportamento de desenho |
+| `SubViewport`/`SubViewportContainer` | Inspector | Tamanho, atualização, render target e apresentação |
+| `GraphEdit`/`GraphNode` | Inspector do nó e edição do grafo | Slots, posição, seleção e propriedades expostas pelo grafo |
+
+### Input e toque
+
+| Sistema | Onde se configura | Interface/propriedades |
+|---|---|---|
+| Unity Input System | Asset de actions e `Project Settings` | Actions, maps, bindings, processors/interactions e dispositivos |
+| Unity touch/legacy input | `Project Settings`/API, conforme sistema | Configuração global e leitura por código; não é um componente de gameplay automático |
+| Godot Input Map | `Project Settings > Input Map` | Ações, eventos e deadzones |
+| Godot `InputEvent` | Inspector quando usado como recurso/campo ou recebido por callback | Dados do evento; normalmente é observado por script/sinal |
+| Gesto de editor | Código do editor/viewport | Tap, drag, pinch e seleção precisam ser implementados pela ferramenta que os recebe |
+
+### Sequência para uma ação de botão
+
+1. Criar o elemento UI e ajustar suas propriedades no Inspector.
+2. Garantir `Canvas`/`Control` e raycaster/input correspondentes.
+3. Criar a action ou evento de input, quando a lógica depender de ação nomeada.
+4. Ligar o evento ao método/sinal de runtime.
+5. Executar e verificar foco, toque e resposta.
+
+Os controles documentados do Graph Window/Brush do MapMagic são uma interface editor-only. Eles não configuram automaticamente o Input System do jogo e não são uma dependência de UI runtime.
+
 ## Fontes
 
 - [Unity UI](https://docs.unity3d.com/Manual/UISystem.html)

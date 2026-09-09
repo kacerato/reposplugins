@@ -159,6 +159,31 @@ O bundle declara também:
 
 Esses são defaults confirmados do código v2.1.11, não valores universais para todo projeto. Alterá-los muda custo, memória, tempo e aparência.
 
+## Interface de propriedades e painéis
+
+Lifecycle, threads e memória não são componentes que abrem automaticamente uma aba de propriedades. Eles são observados/configurados por código, Project Settings, Profiler ou por um Inspector customizado que escolha expor esses valores.
+
+No MapMagic v2.1.11, o painel confirmado é o foldout `Multithreading` do Inspector do `MapMagicObject`. Ele desenha `Use Multithreading`, `Auto Max Threads`, `Max Threads`, `Apply Time per Frame` e `Instant Generate`. `Max Threads` fica desabilitado quando `Auto Max Threads` está ativo. O próprio painel informa que os valores de multithreading são compartilhados entre os MapMagic objects.
+
+| Elemento | Abre Inspector próprio? | Onde o estado aparece |
+|---|---|---|
+| Unity lifecycle (`Awake`, `Start`, `Update`, `FixedUpdate`) | Não | Script, Console, Profiler e ferramentas de debug |
+| Godot lifecycle (`_ready`, `_process`, `_physics_process`) | Não | Script, Remote Scene Tree, debugger e profiler |
+| Unity Jobs/threads | Não como componente obrigatório | Profiler e código que cria o job/thread |
+| Godot `Thread`/`WorkerThreadPool` | Não como componente obrigatório | Código, debugger e profiler |
+| MapMagic scheduler | Não como componente separado na cena | Inspector do `MapMagicObject`, Graph Window, Log, Timers e estado do `TerrainTile` |
+| Android lifecycle/memory pressure | Não no Inspector do MapMagic | Callbacks da camada Android, log e testes no dispositivo |
+
+### Sequência de diagnóstico pela interface
+
+1. Selecionar `MapMagicObject` e conferir `Multithreading`.
+2. Selecionar um `TerrainTile` e observar `Priority`, estados `Generate Started`, `Generate Ready`, `Apply Ready` e `Progress`.
+3. Abrir `Window/Log` para observar mensagens do sistema.
+4. Abrir `Window/Timers` para registrar tempos quando essa ferramenta estiver habilitada.
+5. Usar o Profiler do Unity/Godot para separar CPU, GPU, memória, física e renderização.
+
+A existência desse painel não significa que o dispositivo suporte qualquer backend ou que o MapMagic faça toda a execução fora da main thread. A aplicação em Terrain/GameObject continua sujeita às regras do Unity.
+
 ## Fontes
 
 - [Unity lifecycle](https://docs.unity3d.com/Manual/ExecutionOrder.html)

@@ -139,6 +139,41 @@ Sequência que pode ser afirmada sem inventar integração:
 
 O MapMagic não gera sons de vento, motor ou ambiente automaticamente no core v2.1.11.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `AudioSource` | Inspector do `GameObject` | Clip, play on awake, loop, volume, pitch, spatial blend, distância e output |
+| `AudioListener` | Inspector do objeto ou câmera | Listener ativo e posição recebida do Transform |
+| `AudioClip` | Inspector do asset | Import settings e dados do clip conforme formato |
+| `AudioMixer` | Inspector do asset e janela Audio Mixer | Grupos, snapshots, parâmetros expostos e efeitos |
+| `AudioMixerGroup` | Janela Audio Mixer/asset | Roteamento, volume e efeitos do grupo |
+| `AudioMixerSnapshot` | Janela Audio Mixer/asset | Estado salvo do mixer e transições |
+| `AudioReverbZone` | Inspector do `GameObject` | Forma, alcance e parâmetros de reverb |
+| Microphone API | Não abre Inspector próprio | Dispositivos e captura são acessados por API/runtime |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `AudioStreamPlayer` | Inspector do nó | Stream, autoplay, volume, bus, loop conforme stream e reprodução |
+| `AudioStreamPlayer2D`/`AudioStreamPlayer3D` | Inspector do nó | Stream, volume, bus e parâmetros espaciais/atenuação |
+| `AudioListener3D` | Inspector do nó | Listener atual/posição conforme a cena |
+| `AudioStream` | Inspector do recurso | Dados do stream e importação |
+| Audio bus | Painel Audio | Volume, mute, solo, efeitos e roteamento |
+| `AudioEffect` | Painel Audio/asset | Parâmetros do efeito |
+
+### Sequência de interface
+
+1. Selecionar o emissor e atribuir um clip/stream.
+2. Ajustar volume, loop, distância/espacialização e bus/output.
+3. Selecionar o mixer/bus para ajustar roteamento e efeitos.
+4. Executar e verificar o listener ativo.
+
+O bundle v2.1.11 não declara `AudioSource`, `AudioListener`, `AudioMixer`, `AudioStreamPlayer` ou mixer próprio como dependência de geração. Qualquer áudio de motor, vento ou ambiente teria de estar em prefab, cena ou sistema externo, não sendo uma função automática do MapMagic core.
+
 ## Fontes
 
 - [Unity AudioSource](https://docs.unity3d.com/Manual/class-AudioSource.html)

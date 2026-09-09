@@ -148,6 +148,41 @@ Imagem final
 6. Adicione ReflectionProbe/FogVolume se necessário.
 7. Verifique renderer Forward+/Mobile/Compatibility para o alvo.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Camera` | Inspector do `GameObject` | Projection, FOV/ortho size, clipping planes, viewport, depth/priority e clear flags conforme a versão |
+| `Light` | Inspector | Tipo, cor, intensidade, alcance/ângulo, sombras e culling mask |
+| `ReflectionProbe` | Inspector | Bounds, clipping, resolução, HDR, intensidade e modo de atualização |
+| `LightProbeGroup` | Inspector + Scene View | Pontos da sonda e edição visual no Scene View |
+| `LightProbeProxyVolume` | Inspector | Volume, resolução e modo de atualização |
+| Skybox/`RenderSettings` | Lighting/Environment e propriedades do projeto/cena | Skybox, ambient lighting, fog e reflexos conforme o pipeline |
+| `Volume`/`VolumeProfile` | Inspector do objeto e asset | Profile, prioridade, peso, blend distance e overrides expostos pelo pipeline |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Camera3D` | Inspector do nó | Projection, FOV/size, near/far, cull mask e propriedades de viewport |
+| `WorldEnvironment`/`Environment` | Inspector do nó/recurso | Background, sky, ambient light, fog, tonemap, glow e ajustes suportados |
+| `DirectionalLight3D`, `OmniLight3D`, `SpotLight3D` | Inspector do nó | Cor, energia, alcance/ângulo, sombras e cull mask |
+| `ReflectionProbe` | Inspector do nó | Bounds e atualização/reflexos conforme o recurso |
+| `LightmapGI`/`VoxelGI`/`LightmapProbe` | Inspector do nó | Parâmetros de bake/volume e propriedades do sistema |
+| `FogVolume`/`Sky` | Inspector do nó/recurso | Forma, material de fog e dados do céu |
+
+### Sequência prática
+
+1. Selecionar a câmera e definir a projeção.
+2. Selecionar a luz/ambiente e configurar a iluminação.
+3. Verificar se o objeto está na layer/cull mask correta.
+4. Adicionar probes/volumes somente se o projeto realmente utilizar esses sistemas.
+5. No MapMagic, confirmar o `Material Template` e as `Terrain Properties` no Inspector próprio; a câmera e as luzes continuam sendo componentes da cena do Unity.
+
+O código do bundle possui um fallback de material de Terrain, mas não declara `Cinemachine`, `WorldEnvironment`, `ReflectionProbe`, `LightProbeGroup` ou `Volume` como requisitos do `MapMagicObject`.
+
 ## Fontes
 
 - [Unity Camera](https://docs.unity3d.com/Manual/CamerasOverview.html)

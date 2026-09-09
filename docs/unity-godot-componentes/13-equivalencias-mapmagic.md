@@ -145,6 +145,36 @@ Não criar aba especial de “Prioridades”. Use scheduler com:
 5. renderer Mobile.
 6. Android pause/resume.
 
+## Interface de propriedades: fato e proposta
+
+### Componentes e recursos confirmados no MapMagic
+
+| Alvo | Interface confirmada |
+|---|---|
+| `MapMagicObject` | `CustomEditor` com Graph, geração, tiles, locks, ranges, outputs, Terrain Properties, multithreading e About |
+| `Graph` | `CustomEditor` com Open Editor, Open in New Tab, Seed, Nodes, versão, overrides e dependent graphs; edição principal no Graph Window |
+| `TerrainTile` | `CustomEditor` com coordenação, distância, prioridade, Draft/Main, detail atual, preview, ready, complexidade e progresso |
+| `MapMagicBrush`/`Preset` | Inspectors customizados e controles de Scene View conforme descrito em `11-editor-ferramentas.md` |
+| `MatrixAsset`/`MatrixObject`/holders | Inspectors customizados para preview, origem, layers e configuração declarada por cada editor |
+
+### Componentes sugeridos para Godot
+
+Os nomes da tabela de componentes customizados são propostas. Se forem implementados como `Node3D`/`Resource`, a interface padrão do Godot poderá mostrar propriedades internas e campos marcados com `@export`; uma UI própria exigirá `EditorPlugin`, `EditorInspectorPlugin` ou `EditorProperty`. A tabela não afirma que esses campos já existam:
+
+| Classe proposta | Superfície de editor proposta | O que só pode ser afirmado depois da implementação |
+|---|---|---|
+| `MapMagicWorld : Node3D` | Inspector do node e plugin de editor | Quais propriedades serão exportadas e quais botões existirão |
+| `TerrainGraph : Resource` | Inspector do resource e GraphEdit | Formato real de generators, links e defaults |
+| `Generator : Resource` | Inspector do resource/node visual | Campos e tipos específicos de cada generator |
+| `TerrainChunk : Node3D` | Inspector do node e gizmo | Estado de geração, visualização e ações de atualização |
+| `TerrainMeshView : MeshInstance3D` | Inspector padrão do `MeshInstance3D` | Regras de material/mesh que o adapter implementará |
+| `TerrainCollision : StaticBody3D` | Inspector padrão do corpo/shape | Quando e como o heightmap será aplicado |
+| `ObjectSpawner`/`TerrainBrush` | Inspector + plugin/gizmo | Controles de spawn, stroke, cache e UndoRedo |
+| `GenerationScheduler`/`TileCache` | Painel de debug/plugin, não necessariamente Inspector | Métricas e comandos que serão expostos |
+| `GraphEditorPlugin` | Dock, GraphEdit, Inspector e menus | UI final, validações e comandos de edição |
+
+Não é correto copiar a lista de classes propostas para Godot e apresentá-la como se fossem componentes existentes do MapMagic ou nodes nativos do Godot.
+
 ## Fonte principal
 
 - [MapMagic wiki oficial](https://gitlab.com/denispahunov/mapmagic/-/wikis/home)

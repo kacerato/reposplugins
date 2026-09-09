@@ -250,6 +250,48 @@ No lado do graph, `Height`, `Textures`, `Grass`, `Objects` e `Trees` são `Outpu
 
 O código analisado não declara `MeshRenderer`, `SkinnedMeshRenderer`, `VFX Graph` ou um sistema de renderização customizado como requisito do `MapMagicObject`. Eles podem existir em prefabs, demos ou integrações, mas não devem ser chamados de dependência obrigatória sem verificar o graph/output específico.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades | Observação |
+|---|---|---|---|
+| `Renderer` | Inspector do `GameObject` | Material, iluminação, sombras, layers, probes e opções comuns do renderer | A lista exata varia por pipeline e versão |
+| `MeshFilter` | Inspector | Referência para `Mesh` | A malha é um asset separado; o campo não edita vértices diretamente |
+| `MeshRenderer` | Inspector | Materiais e opções de renderização | Não cria uma malha; trabalha com `MeshFilter` ou outra fonte geométrica |
+| `SkinnedMeshRenderer` | Inspector | Mesh esquelética, bones, root bone, materials e bounds | A animação depende de outros objetos/recursos |
+| `SpriteRenderer` | Inspector | Sprite, cor, flip, sorting e material | É interface de sprite, não de Terrain |
+| `LineRenderer`/`TrailRenderer` | Inspector | Pontos/largura/material e propriedades de trilha | A forma pode ser alterada por script/runtime |
+| `ParticleSystemRenderer` | Inspector | Mesh/material/render mode associados ao ParticleSystem | O sistema de partículas tem seu próprio componente e módulos |
+| `TilemapRenderer` | Inspector | Material, sorting e modo de renderização | O conteúdo vem do `Tilemap` |
+| `Mesh` | Inspector do asset | Dados do recurso, quando suportado pelo editor | Não é componente anexado à cena |
+| `Material`/`Shader` | Inspector do asset | Shader, parâmetros expostos, texturas e estados definidos pelo shader | Nem todo uniforme interno é exposto como campo editável |
+| `RenderTexture` | Inspector do asset | Dimensão, formato e flags do recurso | É recurso de renderização, não renderer de cena |
+| `ShaderVariantCollection` | Inspector do asset | Dados da coleção | Não é uma interface de material por si só |
+| `LODGroup` | Inspector do `GameObject` | Níveis LOD, thresholds e cross-fade | O renderer precisa existir nos níveis configurados |
+| `OcclusionArea`/`OcclusionPortal` | Inspector | Volume/estado relacionado ao occlusion culling | O resultado depende do bake/configuração do Unity |
+| `ReflectionProbe` | Inspector | Volume, resolução, refresh e clipping | Não é requisito declarado do MapMagic core |
+| `LightProbeGroup`/`LightProbeProxyVolume` | Inspector | Posições/configurações de probes | São recursos auxiliares do Unity |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `VisualInstance3D`/`GeometryInstance3D` | Inspector do nó | Layers, visibilidade, materiais e propriedades herdadas |
+| `MeshInstance3D` | Inspector | Recurso `mesh`, materiais por superfície e propriedades visuais |
+| `MultiMeshInstance3D` | Inspector | Recurso `MultiMesh`, material e visibilidade |
+| `Sprite3D`/`AnimatedSprite3D` | Inspector | Textura/sprite frames, animação, billboard e propriedades visuais |
+| `CSGShape3D` | Inspector | Forma, material, operação booleana e propriedades do nó |
+| `Label3D` | Inspector | Texto, fonte, tamanho, billboard e modulação |
+| `Decal` | Inspector | Texturas, extents, cull mask e parâmetros do decal |
+| `Mesh`/`ArrayMesh`/`ImmediateMesh` | Inspector do recurso | Superfícies, materiais e dados que o recurso expõe |
+| `StandardMaterial3D` | Inspector do recurso | Albedo, metallic, roughness, normal, emissão, transparência e estados suportados |
+| `ShaderMaterial`/`Shader` | Inspector do recurso | Shader atribuído e uniforms expostos pelo shader |
+
+### O que o MapMagic realmente abre
+
+O `MapMagicObject` v2.1.11 usa um `CustomEditor` próprio. O código analisado não declara `MeshRenderer`, `SkinnedMeshRenderer`, `VFX Graph` ou um Inspector de renderer próprio como dependência obrigatória do gerador. A interface de Terrain é a do Unity, enquanto a interface de geração é a do `MapMagicObject`/Graph Window descrita em `11-editor-ferramentas.md`.
+
 ## Fontes
 
 - [Unity Renderer](https://docs.unity3d.com/ScriptReference/Renderer.html)

@@ -220,6 +220,30 @@ O código também declara eventos `OnBeforeTileStart`, `OnBeforeTilePrepare`, `O
 
 O MapMagic não declara um renderer de Terrain próprio no núcleo v2.1.11; ele opera sobre os tipos Terrain do Unity.
 
+## Interface de propriedades e Inspector
+
+| Elemento | Interface padrão/costumeira | Campos ou ações documentados | É requisito do MapMagic v2.1.11? |
+|---|---|---|---|
+| Unity `Terrain` | Inspector do `GameObject`; o Unity fornece as ferramentas de terreno | Referência ao `TerrainData`, material, altura, texturas, árvores, detalhes e ferramentas de pintura conforme a versão do Unity | O bundle usa o tipo `Terrain`; a presença de cada aba do Inspector depende da versão do Unity |
+| Unity `TerrainData` | Inspector do asset no `Project` e edição indireta pelo `Terrain` | Resolução/tamanho, heightmap, alphamap, layers, árvores e detalhes | É o dado aplicado aos tiles; o MapMagic não substitui o Inspector do Unity |
+| Unity `TerrainCollider` | Inspector do componente no mesmo `GameObject` | Referência ao `TerrainData` e propriedades do collider disponíveis na versão | O `MapMagicObject` possui `applyColliders = true`, mas o componente de gameplay do jogador não é criado pelo gerador |
+| Unity `TerrainLayer` | Inspector do asset | Textura difusa/normal, tile size/offset e propriedades de layer conforme a versão | O output de textura depende de layers/configuração do terreno; não confundir com shader customizado |
+| `DetailPrototype`/`TreePrototype` | Configurados dentro de `TerrainData`/ferramentas do Terrain | Protótipos de detalhes e árvores | O bundle possui outputs de trees/grass; o uso efetivo depende do output e das configurações do graph |
+| Godot `MeshInstance3D` por chunk | Inspector do nó | `mesh`, material override, visibilidade, layers e propriedades herdadas | É uma implementação proposta para Godot, não um componente criado pelo MapMagic original |
+| Godot `ArrayMesh` | Inspector do recurso ou campo `mesh` | Superfícies, materiais e dados da malha conforme o recurso | Proposta para representar uma saída de malha; não é requisito original do MapMagic |
+| Godot `HeightMapShape3D` | Inspector da `Shape3D` ligada ao `CollisionShape3D` | Dados do heightmap e dimensões da forma | É uma alternativa proposta para colisão de terreno em Godot |
+| Godot `MultiMeshInstance3D` | Inspector do nó e do recurso `MultiMesh` | Mesh, transformações por instância e material | Proposta para árvores/grass instanciados; não é saída declarada do bundle |
+
+### Sequência da alteração pelo Inspector
+
+1. Selecionar o `Terrain` na `Hierarchy` ou o asset `TerrainData` no `Project`.
+2. Alterar a propriedade na interface do Unity.
+3. O Unity marca/aplica os dados conforme a operação e a versão do editor.
+4. Se a alteração for feita no contexto do MapMagic, o graph/output pode escrever novamente o dado ao gerar ou aplicar o tile.
+5. No caso de uma implementação Godot, o nó/recurso correspondente teria de receber os dados gerados e atualizar mesh e shape; isso é proposta de integração, não comportamento do bundle.
+
+O Inspector não significa que todos os campos estejam editáveis em todos os estados. Alguns dados são internos, derivados, dependem de um asset atribuído ou só são desenhados por uma ferramenta de editor.
+
 ## Fontes
 
 - [Unity TerrainData](https://docs.unity3d.com/ScriptReference/TerrainData.html)

@@ -6,6 +6,8 @@ Esta pasta transforma o catálogo geral em documentos separados por categoria. O
 
 Uma lista absolutamente literal de todos os tipos da API de duas engines depende da versão e passa de milhares de classes. A documentação abaixo cobre os componentes de cena, recursos e serviços que participam diretamente de um projeto de engine/terrain. Cada categoria possui sua própria explicação, fluxo, localização no editor, dependências, exemplos e tutorial de teste.
 
+As categorias também possuem uma seção de **Interface de propriedades e Inspector**. Ela informa se o elemento aparece na `Hierarchy`/`Scene Tree`, no `Project`/`FileSystem`, em uma janela própria, na `Scene View`/viewport ou somente por API/runtime. Para o MapMagic, o documento de editor lista as interfaces customizadas realmente encontradas no bundle v2.1.11.
+
 ## Como a informação foi classificada
 
 Para evitar completar lacunas com suposições, os documentos usam esta separação:

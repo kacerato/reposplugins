@@ -144,6 +144,40 @@ Assim, a sequência confirmada é apenas:
 
 Não atribuir ao MapMagic recursos de state machine, blend tree ou Timeline sem uma integração adicional comprovada.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Animator` | Inspector do `GameObject` | Controller, Avatar, apply root motion, culling e parâmetros de atualização |
+| `Animator Controller` | Inspector do asset e janela Animator | States, transitions, layers, parameters e state machine |
+| `AnimatorOverrideController` | Inspector do asset | Controller base e clips substituídos |
+| `AnimationClip` | Inspector do asset | Duração, curvas e opções de importação/clip conforme o asset |
+| `Avatar` | Inspector do asset | Configuração/validação do avatar humanoide quando aplicável |
+| `SkinnedMeshRenderer` | Inspector do `GameObject` | Mesh, bones, root bone, materials e bounds |
+| `Animation` | Inspector do `GameObject` | Clips e modo de reprodução do componente legado |
+| `PlayableDirector`/Timeline | Inspector do `GameObject` e janela Timeline | Asset Timeline, binding, tempo e modo de reprodução |
+| `Cloth` | Inspector | Parâmetros de simulação e colisão suportados pela versão |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `AnimationPlayer` | Inspector do nó | Biblioteca, autoplay, velocidade e animações do nó |
+| `AnimationTree` | Inspector do nó e painel próprio | Árvore/blend tree, ativo, player e parâmetros |
+| `AnimationNodeStateMachine` | Editor da árvore de animação | States e transitions; não é normalmente um componente da Scene Tree sozinho |
+| `Skeleton3D` | Inspector do nó e painel de esqueleto | Bones, pose e edição do esqueleto |
+| `BoneAttachment3D`/`PhysicalBone3D` | Inspector do nó | Bone alvo e propriedades físicas/transformações |
+| `AnimatedSprite2D`/`AnimatedSprite3D` | Inspector do nó | Sprite frames, animação, autoplay, velocidade e reprodução |
+| `Tween` | API/runtime | Não é um nó persistente com Inspector padrão; é criado/gerenciado por código |
+
+### Regra de interface
+
+Selecionar o componente mostra seus dados editáveis; a janela Animator/Timeline/AnimationTree é uma interface adicional para editar o recurso de animação. Clicar em `Play`/autoplay ou alterar parâmetros do Inspector não significa que a animação esteja integrada ao MapMagic.
+
+O MapMagic v2.1.11 pode receber prefabs nos outputs de objetos/árvores, mas o núcleo analisado não declara `Animator`, `Animation`, `AnimationPlayer`, `AnimationTree` ou Timeline. Se um prefab tiver um desses componentes, o Inspector pertence ao prefab/projeto.
+
 ## Fontes
 
 - [Unity Animator](https://docs.unity3d.com/Manual/class-Animator.html)

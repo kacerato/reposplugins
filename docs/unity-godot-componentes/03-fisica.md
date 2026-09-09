@@ -197,6 +197,43 @@ Contato, chão, trigger ou movimento
 5. Adicione `CharacterBody3D`.
 6. Teste `move_and_slide` sobre o heightmap.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Interface | O que fica configurável | Não confundir com |
+|---|---|---|---|
+| `Collider`, `BoxCollider`, `SphereCollider`, `CapsuleCollider` | Inspector do `GameObject` | Forma, centro, tamanho/raio/altura e `isTrigger` conforme o tipo | A forma do collider não movimenta o objeto sem um corpo ou controlador apropriado |
+| `MeshCollider` | Inspector | Mesh, convexidade e trigger | Mesh renderizada; o mesh de colisão é usado pela física |
+| `TerrainCollider` | Inspector do `Terrain` | `TerrainData` e propriedades do collider disponíveis na versão | `TerrainData` visual; são dados relacionados, mas não o mesmo objeto |
+| `WheelCollider` | Inspector | Raio, suspensão, força e configuração da roda | Não é uma roda visual nem um sistema completo de veículo |
+| `Rigidbody` | Inspector | Massa, arrasto, gravidade, cinemático, constraints e collision detection | O movimento final ainda depende da física e do código que aplica forças |
+| `CharacterController` | Inspector | Altura, raio, centro, slope limit, step offset e skin width | Não é `Rigidbody`; a movimentação é feita por chamadas ao controlador |
+| `ArticulationBody`/`Joints` | Inspector | Propriedades do corpo e limites/molas do vínculo | Não são necessários para o MapMagic gerar terreno |
+| `PhysicsMaterial` | Inspector do asset | Fricção, bounciness e combinações de contato | Não é a superfície visual do Terrain |
+| Raycast/overlap/consulta | Não abre Inspector próprio | É API usada por script ou ferramenta | Pode desenhar gizmos, mas a consulta em si não é um componente |
+
+### Godot
+
+| Tipo | Interface | O que fica configurável |
+|---|---|---|
+| `StaticBody3D`, `AnimatableBody3D`, `CharacterBody3D`, `RigidBody3D`, `Area3D` | Inspector do nó | Layer/mask, monitoramento, modo do corpo e propriedades próprias do tipo |
+| `CollisionShape3D` | Inspector do nó | Referência a uma `Shape3D` |
+| `CollisionPolygon3D` | Inspector do nó | Polígono/forma de colisão conforme o modo disponível |
+| `BoxShape3D`, `SphereShape3D`, `CapsuleShape3D`, `HeightMapShape3D` | Inspector do recurso | Dimensões e dados da forma |
+| `PhysicalBone3D`/joints | Inspector do nó | Corpo, limites e parâmetros do vínculo |
+| casts e consultas | Não são necessariamente um painel de propriedades | São nós/API quando usados, com propriedades próprias somente se o tipo for um nó |
+
+### Sequência de configuração
+
+1. Selecionar o corpo ou collider.
+2. Ajustar a propriedade no Inspector.
+3. Confirmar se a forma está atribuída e se as layers/masks permitem o contato.
+4. Executar a cena e observar a física no runtime.
+5. No caso do MapMagic, confirmar primeiro se o `TerrainCollider`/`TerrainData` foi aplicado; depois configurar separadamente o corpo do personagem, veículo ou objeto de gameplay.
+
+O `MapMagicObject` só declara `applyColliders = true` como parte da aplicação do terreno. O bundle não declara `Rigidbody`, `CharacterController`, `WheelCollider`, `PhysicsMaterial` ou joints como dependências do gerador.
+
 ## Fontes
 
 - [Unity Collider](https://docs.unity3d.com/Manual/CollidersOverview.html)

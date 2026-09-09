@@ -140,6 +140,33 @@ Não bakear todo um mundo infinito de uma vez; usar regiões, tiles e streaming.
 6. Leia `get_next_path_position` no script.
 7. Mova o CharacterBody3D com a direção retornada.
 
+## Interface de propriedades e Inspector
+
+| Elemento | Onde aparece | Interface/propriedades | Limite no MapMagic v2.1.11 |
+|---|---|---|---|
+| Unity `NavMeshSurface` | Inspector do `GameObject` | Agent Type, coleta de geometria, layers, volume e bake | Não foi encontrado como componente obrigatório do `MapMagicObject` |
+| Unity `NavMeshAgent` | Inspector do agente | Velocidade, aceleração, raio, altura, stopping distance e avoidance | É componente de runtime do NPC, não gerador de terreno |
+| Unity `NavMeshObstacle` | Inspector | Forma, carving e tamanho | Não é criado pelo MapMagic core |
+| Unity `NavMeshLink`/`OffMeshLink` | Inspector | Pontos, largura, custo e bidirecionalidade conforme o componente | A ligação precisa ser criada/configurada pelo projeto |
+| Unity `NavMeshModifier`/`NavMeshModifierVolume` | Inspector | Inclusão/exclusão e área de navegação | Depende do pacote AI Navigation/versão do Unity |
+| Unity `NavMeshData` | Inspector do asset/objeto | Dados serializados do navmesh | Não é equivalente automático ao graph do MapMagic |
+| Godot `NavigationRegion3D` | Inspector do nó | `NavigationMesh`, layers e propriedades da região | Integração proposta, não saída declarada do bundle |
+| Godot `NavigationMesh` | Inspector do recurso | Parâmetros de bake e geometria navegável | Precisa ser associado/baked pelo projeto Godot |
+| Godot `NavigationAgent3D` | Inspector do nó | Raio, altura, alvo, avoidance e camadas | Não é componente do MapMagic original |
+| Godot `NavigationObstacle3D`/`NavigationLink3D` | Inspector do nó | Obstáculo/link e parâmetros próprios | São recursos do sistema de navegação Godot |
+| `NavigationServer3D`/API | Não abre Inspector próprio | Serviço/API de navegação | É acessado por código, não selecionado como componente visual |
+
+### Sequência de interface
+
+1. Gerar/aplicar o terreno.
+2. Selecionar o componente ou recurso de navegação no editor.
+3. Definir a malha/region/área navegável e os filtros de layers.
+4. Fazer o bake ou atualização do navmesh, quando o sistema escolhido exigir.
+5. Selecionar o agente e ajustar parâmetros de movimento.
+6. Executar e verificar o caminho.
+
+O `Spline Pathfinding` do MapMagic abre/configura um generator dentro do Graph Window; isso não significa que o Inspector do MapMagic crie `NavMeshAgent`, `NavMeshSurface`, `NavigationRegion3D` ou `NavigationAgent3D`. A documentação desses componentes descreve a navegação da engine, enquanto a integração com o MapMagic precisa ser comprovada no graph/output utilizado.
+
 ## Fontes
 
 - [Unity AI Navigation](https://docs.unity3d.com/Packages/com.unity.ai.navigation@latest)

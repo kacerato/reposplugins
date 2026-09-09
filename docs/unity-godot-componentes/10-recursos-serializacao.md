@@ -164,6 +164,47 @@ Cache pode ser apagado e reconstruído. Um tile gerado deve ter:
 5. Feche/reabra projeto.
 6. Teste migration ao aumentar versão.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `ScriptableObject`/asset | Inspector do asset no `Project` | Campos serializáveis, referências e dados do recurso |
+| `Scene` | Hierarchy/Inspector e arquivo no `Project` | Objetos da cena, referências e settings dos objetos |
+| `Prefab` | Inspector do asset/instância | Dados do prefab, overrides e referências |
+| `Texture2D`/`Texture3D`/`Texture2DArray`/`Cubemap` | Inspector do asset | Import settings, formato, compressão, mipmaps e uso conforme o tipo |
+| `Mesh` | Inspector do asset | Dados/import settings suportados pelo Unity |
+| `Material`/`Shader`/`ComputeShader` | Inspector do asset | Shader, propriedades expostas e referências |
+| `AudioClip`/`AnimationClip`/`Avatar` | Inspector do asset | Import settings e dados específicos do recurso |
+| `TerrainData`/`TerrainLayer` | Inspector do asset | Heightmap, layers, protótipos e dados de terreno |
+| `SerializedObject`/`SerializedProperty` | Não são painéis de usuário | APIs que alimentam Inspectors customizados e Undo |
+| `AssetDatabase`/importers | Não são componentes visuais | Serviços e callbacks de editor para importar/localizar assets |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `Resource` | Inspector do asset ou campo do nó | Propriedades serializadas/exportadas |
+| `PackedScene` | `FileSystem` e instância na `Scene Tree` | Asset da cena, nó raiz e overrides quando aplicáveis |
+| Texturas/imagens | Inspector do recurso | Importação e propriedades do recurso |
+| `ArrayMesh`/`PrimitiveMesh`/`ImmediateMesh` | Inspector do recurso | Superfícies, material e dados geométricos |
+| `StandardMaterial3D`/`ShaderMaterial`/`Shader` | Inspector do recurso | Parâmetros e uniforms expostos |
+| `AudioStream`/`Animation`/`AnimationLibrary` | Inspector do recurso | Dados do stream/animação e bibliotecas |
+| `NavigationMesh`/`Environment`/`Sky`/`Curve`/`Gradient` | Inspector do recurso | Parâmetros específicos do recurso |
+| `FileAccess`/`ConfigFile`/JSON | Não são painéis de cena | APIs de leitura/escrita e dados carregados por código |
+| import plugins | Não são recursos editáveis comuns | Ferramentas de editor que transformam arquivos em recursos |
+
+### Sequência de asset até Inspector
+
+1. O arquivo é importado pelo pipeline do engine.
+2. O resultado aparece no `Project`/`FileSystem`.
+3. Selecionar o asset mostra sua interface própria.
+4. Referenciar o asset em um componente mostra um campo de referência; os dados continuam pertencendo ao recurso.
+5. Alterar o asset pode afetar todas as instâncias que o referenciam; alterar uma instância/prefab pode criar override.
+
+No MapMagic, `Graph`, `Preset`, `MatrixAsset` e `Imported Map` têm interfaces específicas descritas no documento de editor. O Inspector do asset não deve ser confundido com o Graph Window nem com um savegame do jogador.
+
 ## Fontes
 
 - [Unity ScriptableObject](https://docs.unity3d.com/Manual/class-ScriptableObject.html)

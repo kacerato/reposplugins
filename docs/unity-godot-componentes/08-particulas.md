@@ -137,6 +137,32 @@ Sequência confirmada:
 3. renderer do Terrain desenha o detalhe conforme suas configurações;
 4. ParticleSystem/GPUParticles só entram se o projeto escolher outro sistema visual.
 
+## Interface de propriedades e Inspector
+
+### Unity
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `ParticleSystem` | Inspector do `GameObject` | Main, emission, shape, velocity, lifetime, color, size, collision e módulos habilitados |
+| `ParticleSystemRenderer` | Inspector do mesmo objeto | Render mode, material, mesh, trail e sorting |
+| `ParticleSystemForceField` | Inspector do `GameObject` | Tipo, alcance, direção e força do campo |
+| `VisualEffect` | Inspector e Visual Effect Graph | Asset `.vfx`, parâmetros expostos e execução |
+| Módulos de partículas | Dentro do Inspector do `ParticleSystem` | Cada módulo aparece quando ativado e mostra seus campos | Não são componentes independentes anexáveis |
+
+### Godot
+
+| Tipo | Onde aparece | Interface/propriedades |
+|---|---|---|
+| `GPUParticles3D`/`CPUParticles3D` | Inspector do nó | Amount, lifetime, explosiveness, visibility AABB, material/process material e emissão |
+| `GPUParticles2D`/`CPUParticles2D` | Inspector do nó | Quantidade, duração, textura/material e processo 2D |
+| `ParticleProcessMaterial` | Inspector do recurso | Gravidade, direção, velocidade, escala, cor e curvas suportadas |
+| `ShaderMaterial` em partículas | Inspector do recurso | Shader e uniforms expostos |
+| Colisões de partículas | Inspector do nó/recurso, quando suportado | Parâmetros do modo de colisão | A interface e o suporte variam por versão e renderer |
+
+### O que o MapMagic chama de Grass
+
+O `Grass Output` do MapMagic é configurado no Inspector próprio do `MapMagicObject`, dentro de `Outputs Settings`, com os campos de resolução identificados no código (`Resolution Downscale` e `Resolution per Patch`). Ele trabalha com dados de detalhe do Terrain; isso não abre nem exige `ParticleSystem`, `GPUParticles3D` ou `CPUParticles3D`.
+
 ## Fontes
 
 - [Unity Particle System](https://docs.unity3d.com/Manual/PartSysUsage.html)

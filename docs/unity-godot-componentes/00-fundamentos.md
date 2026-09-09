@@ -177,6 +177,37 @@ O código do bundle declara `MapMagicObject` como `MonoBehaviour`, `IMapMagic` e
 
 Isso é o fluxo confirmado pelo código; não significa que todo componente Unity listado neste catálogo seja criado pelo MapMagic. O bundle declara diretamente o `MapMagicObject`, `Graph`, Terrain/TerrainData e seus outputs. Animator, AudioSource, Rigidbody e outros pertencem aos prefabs/projeto quando utilizados, não ao núcleo do MapMagic.
 
+## Interface de propriedades e Inspector
+
+### Regra da Unity
+
+Há interface quando o objeto é selecionado na `Hierarchy` ou no `Project`:
+
+| Tipo | Onde aparece | O que a interface mostra | Limite importante |
+|---|---|---|---|
+| `GameObject` | `Hierarchy` | O Inspector reúne os componentes anexados | `GameObject` não é um componente e não cria, sozinho, um painel específico de propriedades |
+| `Component` | Inspector do `GameObject` | Campos serializáveis e a UI padrão do componente | Métodos não viram botões automaticamente; um `CustomEditor` pode criar botões |
+| `Transform` | Primeiro bloco do Inspector | Posição, rotação, escala, parent e estado relacionado ao objeto | É um componente embutido; não é removido do `GameObject` |
+| `RectTransform` | Inspector de objeto UI | Posição, anchors, pivot, tamanho e offsets | Só aparece como substituto do `Transform` em elementos UI |
+| `MonoBehaviour` | Inspector do objeto com script | Campos públicos serializáveis ou campos privados marcados para serialização | Uma variável privada comum não aparece; uma propriedade C# comum também não aparece automaticamente |
+| `ScriptableObject` | Inspector do asset selecionado | Dados serializados do asset | A interface pode ser substituída por `CustomEditor` |
+| `Prefab` | Inspector do asset ou da instância | Dados do asset e, na instância, overrides | A instância tem contexto de overrides; o asset original não é uma instância da cena |
+
+### Regra do Godot
+
+`Node`, `Node2D`, `Node3D` e `Control` aparecem no Inspector quando selecionados na `Scene Tree`. As propriedades internas do tipo são mostradas pela interface padrão. Um script acrescenta campos ao Inspector quando usa `@export`; `@tool` permite execução do script no editor, mas não transforma automaticamente cada método em botão. `Resource` e `PackedScene` mostram dados quando selecionados no `FileSystem` ou editados como recurso referenciado.
+
+| Tipo | Onde aparece | O que pode ser editado |
+|---|---|---|
+| `Node` | `Scene Tree` → Inspector | Propriedades do nó, grupos, sinais e script conforme a versão/editor |
+| `Node2D` | Seleção do nó 2D | Transformação 2D e propriedades herdadas |
+| `Node3D` | Seleção do nó 3D | Transformação 3D e propriedades herdadas |
+| `Control` | Seleção do controle | Layout, anchors, offsets, mouse e propriedades visuais |
+| `Resource` | `FileSystem` ou campo de recurso | Propriedades exportadas/serializadas do recurso |
+| `PackedScene` | `FileSystem` ou instância na árvore | O asset pode ser aberto/instanciado; a instância expõe o nó raiz e seus componentes |
+
+Em ambos os engines, a interface do Inspector altera dados serializáveis; ela não substitui a sequência de runtime. O resultado da alteração depende do lifecycle do objeto, do script, do editor customizado e de quando a engine aplica a propriedade.
+
 ## Fontes
 
 - [Unity components](https://docs.unity3d.com/Manual/Components.html)
