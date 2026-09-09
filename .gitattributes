@@ -1,0 +1,34 @@
+# Unity generated files
+*.cs text eol=lf
+*.shader text eol=lf
+*.cginc text eol=lf
+*.hlsl text eol=lf
+*.glsl text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.md text eol=lf
+*.unity text eol=lf merge=unityyamlmerge
+*.prefab text eol=lf merge=unityyamlmerge
+*.asset text eol=lf merge=unityyamlmerge
+*.meta text eol=lf merge=unityyamlmerge
+
+# Binary files
+*.png binary
+*.psd binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.tga binary
+*.tif binary
+*.tiff binary
+*.hdr binary
+*.exr binary
+*.pdf binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.zip binary
+*.unitypackage binary
+*.terrainlayer binary
