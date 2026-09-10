@@ -4,6 +4,8 @@
 
 Esta pasta contém a análise do MapMagic 2 Bundle v2.1.11 e o catálogo Unity/Godot usado para explicar o fluxo do plugin. Os documentos estão separados por categoria para que cada sistema — terreno, renderização, assets, Inspector, editor, runtime e mobile — possa ser consultado isoladamente.
 
+O relatório técnico consolidado, que reúne o inventário extenso do bundle e os catálogos de nós, está em [14-relatorio-tecnico-completo.md](14-relatorio-tecnico-completo.md). O catálogo geral das engines está em [docs/unity-godot/README.md](../../unity-godot/README.md).
+
 Uma lista absolutamente literal de todos os tipos da API de duas engines depende da versão e passa de milhares de classes. A documentação abaixo cobre os componentes de cena, recursos e serviços que participam diretamente de um projeto de engine/terrain. Cada categoria possui sua própria explicação, fluxo, localização no editor, dependências, exemplos e tutorial de teste.
 
 As categorias também possuem uma seção de **Interface de propriedades e Inspector**. Ela informa se o elemento aparece na `Hierarchy`/`Scene Tree`, no `Project`/`FileSystem`, em uma janela própria, na `Scene View`/viewport ou somente por API/runtime. Para o MapMagic, o documento de editor lista as interfaces customizadas realmente encontradas no bundle v2.1.11.
@@ -37,6 +39,7 @@ Cada exemplo deve ser lido dentro dessa classificação. Os trechos de Unity/God
 | [11-editor-ferramentas.md](11-editor-ferramentas.md) | Inspector, EditorWindow, plugins, gizmos, graph editor e undo |
 | [12-lifecycle-performance-mobile.md](12-lifecycle-performance-mobile.md) | Lifecycle, threads, jobs, memória, Android e frame budget |
 | [13-equivalencias-mapmagic.md](13-equivalencias-mapmagic.md) | Arquitetura para transportar MapMagic para Godot/engine própria |
+| [14-relatorio-tecnico-completo.md](14-relatorio-tecnico-completo.md) | Relatório consolidado: inventário, dependências, nós, assets, Inspector, runtime e diagnóstico |
 
 ## Regra de classificação
 

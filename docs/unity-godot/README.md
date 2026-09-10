@@ -1,6 +1,6 @@
 # Unity e Godot — catálogo de componentes/nodes para a engine e para o MapMagic
 
-> A documentação modular, separada por plugin e categoria, está em [docs/plugins/README.md](docs/plugins/README.md). A parte de componentes Unity/Godot usada na análise do MapMagic está em [docs/plugins/MapMagic 2 Bundle v2.1.11/README.md](docs/plugins/MapMagic%202%20Bundle%20v2.1.11/README.md).
+> A documentação modular, separada por plugin e categoria, está em [../plugins/README.md](../plugins/README.md). A análise específica do MapMagic está em [../plugins/MapMagic 2 Bundle v2.1.11/README.md](../plugins/MapMagic%202%20Bundle%20v2.1.11/README.md).
 
 ## Como ler este catálogo
 
